@@ -45,6 +45,36 @@
 #define VIRTIO_RING_F_INDIRECT_DESC 28
 #define VIRTIO_RING_F_EVENT_IDX     29
 
+// net device feature bits
+#define VIRTIO_NET_F_CSUM (0)                // Device handles packets with partial checksum.
+#define VIRTIO_NET_F_GUEST_CSUM (1)          // Driver handles packets with partial checksum.
+#define VIRTIO_NET_F_CTRL_GUEST_OFFLOADS (2) // Control channel offloads reconfiguration support.
+#define VIRTIO_NET_F_MTU (3)                 // Device maximum MTU reporting is supported
+#define VIRTIO_NET_F_MAC (5)                 // Device has given MAC address
+#define VIRTIO_NET_F_GUEST_TSO4 (7)          // Driver can receive TSOv4.
+#define VIRTIO_NET_F_GUEST_TSO6 (8)          // Driver can receive TSOv6.
+#define VIRTIO_NET_F_GUEST_ECN (9)           // Driver can receive TSO with ECN.
+#define VIRTIO_NET_F_GUEST_UFO (10)          // Driver can receive UFO.
+#define VIRTIO_NET_F_HOST_TSO4 (11)          // Device can receive TSOv4.
+#define VIRTIO_NET_F_HOST_TSO6 (12)          // Device can receive TSOv6.
+#define VIRTIO_NET_F_HOST_ECN (13)           // Device can receive TSO with ECN.
+#define VIRTIO_NET_F_HOST_UFO (14)           // Device can receive UFO.
+#define VIRTIO_NET_F_MRG_RXBUF (15)          // Driver can merge receive buffers.
+#define VIRTIO_NET_F_STATUS (16)             // Configuration status field is available.
+#define VIRTIO_NET_F_CTRL_VQ (17)            // Control channel is available.
+#define VIRTIO_NET_F_CTRL_RX (18)            // Control channel RX mode support.
+#define VIRTIO_NET_F_CTRL_VLAN (19)          // Control channel VLAN filtering.
+#define VIRTIO_NET_F_GUEST_ANNOUNCE (21)     // Driver can send gratuitous packets.
+#define VIRTIO_NET_F_MQ (22)                 // Device supports multiqueue with automatic receive steering.
+#define VIRTIO_NET_F_CTRL_MAC_ADDR (23)      // Set MAC address through control channel.
+#define VIRTIO_NET_F_HOST_USO (56)           // Device can receive USO packets.
+#define VIRTIO_NET_F_HASH_REPORT (57)        // Device can report per-packet hash value and a type of calculated hash.
+#define VIRTIO_NET_F_GUEST_HDRLEN (59)       // Driver can provide the exact hdr_len value.
+#define VIRTIO_NET_F_RSS (60)                // Device supports RSS (receive-side scaling)
+#define VIRTIO_NET_F_RSC_EXT (61)            // Device can process duplicated ACKs and report number of coalesced segments and duplicated ACKs.
+#define VIRTIO_NET_F_STANDBY (62)            // Device may act as a standby for a primary device with the same MAC address.
+#define VIRTIO_NET_F_SPEED_DUPLEX (63)       // Device reports speed and duplex.
+
 // this many virtio descriptors.
 // must be a power of two.
 #define NUM 8

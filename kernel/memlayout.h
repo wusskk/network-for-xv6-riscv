@@ -24,6 +24,8 @@
 // virtio mmio interface
 #define VIRTIO0 0x10001000
 #define VIRTIO0_IRQ 1
+#define VIRTIO1 0x10002000
+#define VIRTIO1_IRQ 1
 
 // core local interruptor (CLINT), which contains the timer.
 #define CLINT 0x2000000L

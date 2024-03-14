@@ -28,7 +28,8 @@ OBJS = \
   $K/sysfile.o \
   $K/kernelvec.o \
   $K/plic.o \
-  $K/virtio_disk.o
+  $K/virtio_disk.o \
+  $K/virtio_net.o
 
 # riscv64-unknown-elf- or riscv64-linux-gnu-
 # perhaps in /opt/riscv/bin
@@ -160,6 +161,8 @@ QEMUOPTS = -machine virt -bios none -kernel $K/kernel -m 128M -smp $(CPUS) -nogr
 QEMUOPTS += -global virtio-mmio.force-legacy=false
 QEMUOPTS += -drive file=fs.img,if=none,format=raw,id=x0
 QEMUOPTS += -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
+QEMUOPTS += -netdev user,id=net0
+QEMUOPTS += -device virtio-net-device,netdev=net0,bus=virtio-mmio-bus.1
 
 qemu: $K/kernel fs.img
 	$(QEMU) $(QEMUOPTS)
@@ -171,3 +174,6 @@ qemu-gdb: $K/kernel .gdbinit fs.img
 	@echo "*** Now run 'gdb' in another window." 1>&2
 	$(QEMU) $(QEMUOPTS) -S $(QEMUGDB)
 
+qemu-dtb: $K/kernel fs.img
+	$(QEMU) $(QEMUOPTS) -machine dumpdtb=riscv64-virt.dtb
+	dtc -I dtb -O dts -o riscv64-virt.dts riscv64-virt.dtb
