@@ -29,6 +29,8 @@
 #define VIRTIO_MMIO_DRIVER_DESC_HIGH	0x094
 #define VIRTIO_MMIO_DEVICE_DESC_LOW	0x0a0 // physical address for used ring, write-only
 #define VIRTIO_MMIO_DEVICE_DESC_HIGH	0x0a4
+#define	VIRTIO_MMIO_CONFIG	            0x100	/* requires version 2 */
+
 
 // status register bits, from qemu virtio_config.h
 #define VIRTIO_CONFIG_S_ACKNOWLEDGE	1
@@ -44,6 +46,8 @@
 #define VIRTIO_F_ANY_LAYOUT         27
 #define VIRTIO_RING_F_INDIRECT_DESC 28
 #define VIRTIO_RING_F_EVENT_IDX     29
+#define VIRTIO_F_VERSION_1	        (32)
+#define VIRTIO_F_RING_RESET	        (40)
 
 // net device feature bits
 #define VIRTIO_NET_F_CSUM (0)                // Device handles packets with partial checksum.

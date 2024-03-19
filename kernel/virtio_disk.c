@@ -149,6 +149,9 @@ virtio_disk_init(void)
   status |= VIRTIO_CONFIG_S_DRIVER_OK;
   *R(VIRTIO_MMIO_STATUS) = status;
 
+//   printf("VIRTIO_MMIO_STATUS: %x\n", *R(VIRTIO_MMIO_STATUS));
+//   printf("VIRTIO_MMIO_QUEUE_READY: %x\n", *R(VIRTIO_MMIO_QUEUE_READY));
+//   printf("VIRTIO_MMIO_INTERRUPT_STATUS: %x\n", *R(VIRTIO_MMIO_INTERRUPT_STATUS));
   // plic.c and trap.c arrange for interrupts from VIRTIO0_IRQ.
 }
 
@@ -211,6 +214,22 @@ alloc3_desc(int *idx)
   }
   return 0;
 }
+
+/*
+这段代码是一个名为virtio_disk_rw的函数，它用于读写虚拟磁盘。函数接受两个参数：一个buf结构体的指针b，和一个表示操作类型的整数write。如果write为真，函数执行写操作；否则执行读操作。
+
+函数首先计算要操作的扇区号，然后获取磁盘的锁，以防止其他线程同时操作磁盘。
+
+根据Virtio规范，每个磁盘操作需要三个描述符：一个用于操作类型和扇区号，一个用于数据，一个用于存储操作结果。因此，函数接下来的部分是在一个循环中调用alloc3_desc函数，尝试分配三个描述符。如果分配失败，函数会让当前线程睡眠，等待其他线程释放描述符。
+
+分配成功后，函数会设置这三个描述符的内容。第一个描述符的内容是一个virtio_blk_req结构体，包含了操作类型和扇区号。第二个描述符的内容是要读写的数据。第三个描述符的内容是一个字节的空间，用于存储操作结果。
+
+然后，函数将这个操作的信息记录下来，以便在中断处理程序virtio_disk_intr中使用。接着，函数将第一个描述符的索引写入到设备的可用环中，然后通知设备新的操作已经准备好。
+
+函数接下来进入一个循环，等待中断处理程序设置b->disk为0，表示操作已经完成。完成后，函数会清理这次操作使用的资源，然后释放磁盘的锁。
+
+这个函数的主要复杂性在于它使用了Virtio设备的接口，这个接口需要通过描述符和环来进行通信。但是，函数的基本结构是很常见的：获取资源，设置操作，等待操作完成，清理资源。
+*/
 
 void
 virtio_disk_rw(struct buf *b, int write)
