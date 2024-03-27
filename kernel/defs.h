@@ -8,6 +8,8 @@ struct spinlock;
 struct sleeplock;
 struct stat;
 struct superblock;
+struct sock;
+struct mbuf;
 
 // bio.c
 void            binit(void);
@@ -187,10 +189,22 @@ void            virtio_disk_intr(void);
 
 // virtio_net.c
 void            virtio_net_init(void);
-void            virtio_net_send(uint8* buf, uint32 len, int flag);
-void            virtio_net_rece(uint8* buf);
+void            virtio_net_send(uint8*, uint32, int);
+void            virtio_net_recv(void);
 void            virtio_net_intr(void);
 void            virtio_test(void);
 
 // number of elements in fixed-size array
 #define NELEM(x) (sizeof(x)/sizeof((x)[0]))
+
+// sysnet.c
+int             sockalloc(struct file**, uint32, uint16, uint16, uint16);
+void            sockclose(struct sock *);
+int             sockread(struct sock *, uint64, int);
+int             sockwrite(struct sock*, uint64, int);
+void            sockrecvudp(struct mbuf*, uint32, uint16, uint16);
+
+//net.c
+int             net_tx_udp(struct mbuf*, uint32, uint16,uint16);
+int             net_tx_tcp(struct mbuf*, uint32, uint16,uint16);
+void            net_rx_eth(struct mbuf*);

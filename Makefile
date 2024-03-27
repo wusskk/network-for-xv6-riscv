@@ -29,7 +29,9 @@ OBJS = \
   $K/kernelvec.o \
   $K/plic.o \
   $K/virtio_disk.o \
-  $K/virtio_net.o
+  $K/virtio_net.o \
+  $K/sysnet.o \
+  $K/net.o
 
 # riscv64-unknown-elf- or riscv64-linux-gnu-
 # perhaps in /opt/riscv/bin
@@ -133,6 +135,7 @@ UPROGS=\
 	$U/_grind\
 	$U/_wc\
 	$U/_zombie\
+	$U/_nettests\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
@@ -157,11 +160,11 @@ ifndef CPUS
 CPUS := 1
 endif
 
-QEMUOPTS = -machine virt -bios none -kernel $K/kernel -m 128M -smp $(CPUS) -nographic -monitor telnet:127.0.0.1:29000,server,nowait
+QEMUOPTS = -machine virt -bios none -kernel $K/kernel -m 128M -smp $(CPUS) -nographic # -monitor telnet:127.0.0.1:29000,server,nowait
 QEMUOPTS += -global virtio-mmio.force-legacy=false
 QEMUOPTS += -drive file=fs.img,if=none,format=raw,id=x0
 QEMUOPTS += -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
-QEMUOPTS += -netdev user,id=net0
+QEMUOPTS += -netdev user,id=net0,hostfwd=tcp::5000-:4000,hostfwd=udp::6000-:3000 -object filter-dump,id=net0,netdev=net0,file=packets.pcap
 QEMUOPTS += -device virtio-net-device,netdev=net0,bus=virtio-mmio-bus.1
 
 qemu: $K/kernel fs.img

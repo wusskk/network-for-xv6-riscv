@@ -503,3 +503,31 @@ sys_pipe(void)
   }
   return 0;
 }
+
+
+// receive 4 arguments, raddr, lport, rport, procotol type. return fd
+int
+sys_connect(void)
+{
+  uint32 raddr;
+  uint32 lport;
+  uint32 rport;
+  uint32 type;
+  struct file* f;
+  int fd;
+
+  argint(0, (int*)&raddr);
+  argint(1, (int*)&lport);
+  argint(2, (int*)&rport);
+  argint(3, (int*)&type);
+
+  if (sockalloc(&f, raddr, (uint16)lport, (uint16)rport, (uint16)type) < 0){
+    return -1;
+  }
+  if ((fd = fdalloc(f)) < 0){
+    kfree(f->sock);
+    fileclose(f);
+    return -1;
+  }
+  return fd;
+}
