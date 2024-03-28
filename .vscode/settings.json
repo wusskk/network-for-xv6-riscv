@@ -1,0 +1,24 @@
+{
+    "files.associations": {
+        "mutex": "c",
+        "memlayout.h": "c",
+        "defs.h": "c",
+        "file.h": "c",
+        "param.h": "c",
+        "buf.h": "c",
+        "virtio.h": "c",
+        "types.h": "c",
+        "riscv.h": "c",
+        "spinlock.h": "c",
+        "sleeplock.h": "c",
+        "net.h": "c",
+        "random": "c",
+        "internet": "c",
+        "user.h": "c",
+        "socket": "c"
+    },
+    "C_Cpp.clang_format_style": "",
+    "editor.formatOnSaveMode": "file",
+    "C_Cpp.clang_format_fallbackStyle": "",
+    "editor.formatOnSave": false,
+}

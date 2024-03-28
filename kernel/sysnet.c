@@ -161,5 +161,6 @@ void sockrecvudp(struct mbuf* m, uint32 ra, uint16 lp, uint16 rp)
 
     acquire(&sock->lock);
     memmove(&sock->rx, m, sizeof(struct mbuf));
+    wakeup(&sock->rx);
     release(&sock->lock);
 }

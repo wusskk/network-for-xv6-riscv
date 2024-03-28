@@ -15,8 +15,8 @@ mkfs
 kernel/kernel
 user/usys.S
 .gdbinit
-.vscode/*
 .gdb_history
 note.md
 *.dtb
 *.dts
+*.pcap

@@ -286,7 +286,7 @@ static void net_rx_arp(struct mbuf* m)
     memmove(new_arp_hdr->sha, local_mac, ETHADDR_LEN);
     new_arp_hdr->sip = htonl(local_ip);
     memmove(new_arp_hdr->tha, arp_hdr->sha, ETHADDR_LEN);   
-    new_arp_hdr->tip = htonl(arp_hdr->sip);
+    new_arp_hdr->tip = arp_hdr->sip;
     
     net_tx_eth(newm, ETHTYPE_ARP);
     mbuf_free(m);
