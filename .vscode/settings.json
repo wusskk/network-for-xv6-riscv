@@ -17,8 +17,9 @@
         "user.h": "c",
         "socket": "c"
     },
-    "C_Cpp.clang_format_style": "",
-    "editor.formatOnSaveMode": "file",
+    "C_Cpp.clang_format_style": "file:/home/light/c/xv6-riscv/.clang-format",
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
     "C_Cpp.clang_format_fallbackStyle": "",
     "editor.formatOnSave": false,
+    "github.copilot.editor.enableAutoCompletions": true,
 }

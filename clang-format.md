@@ -1,0 +1,113 @@
+这是一个 `.clang-format` 配置文件，用于指导 `clang-format` 工具如何格式化 C、C++ 和 Objective-C 代码。以下是每个配置项的含义：
+
+- `Language`: 设置文件的语言类型，这里是 C++。
+- `BasedOnStyle`: 基于哪种风格进行格式化，这里选择的是 LLVM 风格。
+- `AccessModifierOffset`: 访问修饰符的缩进偏移量，负值表示向右缩进。
+- `AlignAfterOpenBracket`: 在开放括号后进行对齐。
+- `AlignConsecutiveAssignments`: 是否对齐连续的赋值语句。
+- `AlignConsecutiveBitFields`: 是否对齐连续的位字段。
+- `AlignConsecutiveDeclarations`: 是否对齐连续的声明。
+- `AlignEscapedNewlines`: 转义换行符的对齐方式，这里设置为右对齐。
+- `AlignOperands`: 对齐操作数。
+- `AlignTrailingComments`: 对齐后置注释。
+- `AllowAllArgumentsOnNextLine`: 允许所有函数参数都在下一行。
+- `AllowAllConstructorInitializersOnNextLine`: 允许所有构造函数初始化器都在下一行。
+- `AllowAllParametersOfDeclarationOnNextLine`: 允许所有函数声明的参数都在下一行。
+- `AllowShortBlocksOnASingleLine`: 是否允许简短的代码块单独一行。
+- `AllowShortCaseLabelsOnASingleLine`: 是否允许简短的 case 标签单独一行。
+- `AllowShortFunctionsOnASingleLine`: 是否允许简短的函数单独一行。
+- `AllowShortLambdasOnASingleLine`: 是否允许简短的 lambda 表达式单独一行。
+- `AllowShortIfStatementsOnASingleLine`: 是否允许简短的 if 语句单独一行。
+- `AllowShortLoopsOnASingleLine`: 是否允许简短的循环单独一行。
+- `AlwaysBreakAfterDefinitionReturnType`: 总是在定义返回类型后换行。
+- `AlwaysBreakAfterReturnType`: 总是在返回类型后换行。
+- `AlwaysBreakBeforeMultilineStrings`: 是否在多行字符串前换行。
+- `AlwaysBreakTemplateDeclarations`: 总是在模板声明前换行。
+- `BinPackArguments`: 是否打包函数参数。
+- `BinPackParameters`: 是否打包函数声明的参数。
+- `BraceWrapping`: 大括号的换行和缩进方式。
+  - `AfterCaseLabel`: 在 case 标签后是否换行。
+  - `AfterClass`: 在类定义后是否换行。
+  - `AfterControlStatement`: 在控制语句后是否换行。
+  - `AfterEnum`: 在枚举定义后是否换行。
+  - `AfterFunction`: 在函数定义后是否换行。
+  - `AfterNamespace`: 在命名空间后是否换行。
+  - `AfterObjCDeclaration`: 在 Objective-C 声明后是否换行。
+  - `AfterStruct`: 在结构体定义后是否换行。
+  - `AfterUnion`: 在联合体定义后是否换行。
+  - `AfterExternBlock`: 在 extern 块后是否换行。
+  - `BeforeCatch`: 在 catch 块前是否换行。
+  - `BeforeElse`: 在 else 块前是否换行。
+  - `IndentBraces`: 是否缩进大括号。
+  - `SplitEmptyFunction`: 是否将空函数分开。
+  - `SplitEmptyRecord`: 是否将空记录类型分开。
+  - `SplitEmptyNamespace`: 是否将空命名空间分开。
+- `BreakBeforeBinaryOperators`: 在二元运算符前是否换行。
+- `BreakBeforeBraces`: 在大括号前是否换行，这里设置为自定义。
+- `BreakBeforeInheritanceComma`: 在继承列表的逗号前是否换行。
+- `BreakInheritanceList`: 继承列表的换行方式。
+- `BreakBeforeTernaryOperators`: 在三元运算符前是否换行。
+- `BreakConstructorInitializersBeforeComma`: 在构造函数初始化器的逗号前是否换行。
+- `BreakConstructorInitializers`: 在构造函数初始化器后是否换行。
+- `BreakAfterJavaFieldAnnotations`: 在 Java 字段注释后是否换行。
+- `BreakStringLiterals`: 是否在字符串字面量中换行。
+- `ColumnLimit`: 列宽限制。
+- `CommentPragmas`: 特殊注释的正则表达式，用于识别注释。
+- `CompactNamespaces`: 是否紧凑地放置命名空间。
+- `ConstructorInitializerAllOnOneLineOrOnePerLine`: 构造函数初始化器的放置方式。
+- `ConstructorInitializerIndentWidth`: 构造函数初始化器的缩进宽度。
+- `ContinuationIndentWidth`: 续行的缩进宽度。
+- `Cpp11BracedListStyle`: 是否使用 C++11 的列表初始化样式。
+- `DeriveLineEnding`: 是否推导行尾序列。
+- `DerivePointerAlignment`: 是否推导指针对齐方式。
+- `DisableFormat`: 是否禁用格式化。
+- `ExperimentalAutoDetectBinPacking`: 是否启用实验性的自动检测二元组打包。
+- `FixNamespaceComments`: 是否修复命名空间注释。
+- `ForEachMacros`: 需要特殊处理的 for-each 宏。
+- `IncludeBlocks`: 包含文件块的处理方式。
+- `IncludeCategories`: 包含文件的分类和优先级。
+- `IncludeIsMainRegex`: 主文件的正则表达式。
+- `IndentCaseBlocks`: 是否缩进 case 块。
+- `IndentCaseLabels`: 是否缩进 case 标签。
+- `IndentExternBlock`: extern 块的缩进方式。
+- `IndentGotoLabels`: 是否缩进 goto 标签。
+- `IndentPPDirectives`: 预处理器指令的缩进方式。
+- `IndentWidth`: 缩进宽度。
+- `IndentWrappedFunctionNames`: 是否缩进换行的函数名。
+- `JavaScriptQuotes`: JavaScript 字符串的引号风格。
+- `JavaScriptWrapImports`: 是否换行包裹 JavaScript 导入语句。
+- `KeepEmptyLinesAtTheStartOfBlocks`: 是否保留块开头的空行。
+- `MacroBlockBegin`: 宏块开始的字符串。
+- `MacroBlockEnd`: 宏块结束的字符串。
+- `MaxEmptyLinesToKeep`: 最大保留的空行数。
+- `NamespaceIndentation`: 命名空间的缩进方式。
+- `ObjCBinPackProtocolList`: Objective-C 协议列表的打包方式。
+- `ObjCBlockIndentWidth`: Objective-C 块的缩进宽度。
+- `ObjCSpaceAfterProperty`: 是否在 Objective-C 属性后添加空格。
+- `ObjCSpaceBeforeProtocolList`: 是否在 Objective-C 协议列表前添加空格。
+- `PenaltyBreakAssignment`: 分配表达式换行的惩罚分数。
+- `PenaltyBreakBeforeFirstCallParameter`: 在第一个函数调用参数前换行的惩罚分数。
+- `PenaltyBreakComment`: 注释换行的惩罚分数。
+- `PenaltyBreakFirstLessLess`: 在第一个 `<<` 操作符前换行的惩罚分数。
+- `PenaltyBreakString`: 字符串换行的惩罚分数。
+- `PenaltyBreakTemplateDeclaration`: 模板声明换行的惩罚分数。
+- `PenaltyExcessCharacter`: 超出列宽限制的字符的惩罚分数。
+- `PenaltyReturnTypeOnItsOwnLine`: 返回类型单独一行的惩罚分数。
+- `PointerAlignment`: 指针对齐方式。
+- `ReflowComments`: 是否重新流动注释。
+- `SortIncludes`: 是否排序包含的头文件。
+- `SortUsingDeclarations`: 是否排序 using 声明。
+- `SpaceAfterCStyleCast`: 是否在 C 风格类型转换后添加空格。
+- `SpaceAfterLogicalNot`: 是否在逻辑非操作符后添加空格。
+- `SpaceAfterTemplateKeyword`: 是否在模板关键字后添加空格。
+- `SpaceBeforeAssignmentOperators`: 是否在赋值操作符前添加空格。
+- `SpaceBeforeCpp11BracedList`: 是否在 C++11 列表初始化前添加空格。
+- `SpaceBeforeCtorInitializerColon`: 是否在构造函数初始化器的冒号前添加空格。
+- `SpaceBeforeInheritanceColon`: 是否在继承列表的冒号前添加空格。
+- `SpaceBeforeParens`: 是否在括号前添加空格。
+- `SpaceBeforeRangeBasedForLoopColon`: 是否在基于范围的 for 循环的冒号前添加空格。
+- `SpaceInEmptyBlock`: 是否在空代码块中添加空格。
+- `SpaceInEmptyParentheses`: 是否在空括号中添加空格。
+- `SpacesBeforeTrailingComments`: 后置注释前的空格数。
+- `SpacesInAngles`: 是否在尖括号中添加空格。
+- `SpacesInContainerLiterals`: 是否在容器字面量中添加空格
