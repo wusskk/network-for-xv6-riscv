@@ -507,7 +507,7 @@ sys_pipe(void)
 
 // receive 4 arguments, raddr, lport, rport, procotol type. return fd
 int
-sys_connect(void)
+sys_socket(void)
 {
   uint32 raddr;
   uint32 lport;
@@ -530,4 +530,18 @@ sys_connect(void)
     return -1;
   }
   return fd;
+}
+
+// receive fd. return 0 for connect success, -1 for fail
+int
+sys_connect(void)
+{
+  struct file* f;
+  int ret;
+
+  if(argfd(0, 0, &f) < 0)
+    return -1;
+
+  ret = sockconnect(f->sock);
+  return ret;
 }

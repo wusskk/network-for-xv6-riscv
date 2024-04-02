@@ -1,20 +1,25 @@
 //
 // packet buffer management
 //
-
-#define MBUF_SIZE              1514
-#define MBUF_DEFAULT_HEADROOM  128
+#define MBUF_SIZE 1514
+#define MBUF_DEFAULT_HEADROOM 128
 #define DATA_LEN 1514
+//
+// useful networking headers
+//
+#define ETHADDR_LEN 6
+
+extern uint8 local_mac[6];
 
 struct mbuf {
-  struct mbuf  *next; // the next mbuf in the chain
-  char         *head; // the current start position of the buffer
-  unsigned int len;   // the length of the buffer
-  char         buf[MBUF_SIZE]; // the backing store
+  struct mbuf *next;   // the next mbuf in the chain
+  char *head;          // the current start position of the buffer
+  unsigned int len;    // the length of the buffer
+  char buf[MBUF_SIZE]; // the backing store
 };
 
-char* mbuf_put(struct mbuf* m, int len);
-struct mbuf* mbuf_alloc();
+char *mbuf_put(struct mbuf *m, int len);
+struct mbuf *mbuf_alloc();
 
 // char *mbufpull(struct mbuf *m, unsigned int len);
 // char *mbufpush(struct mbuf *m, unsigned int len);
@@ -47,18 +52,19 @@ struct mbuf* mbuf_alloc();
 // int mbufq_empty(struct mbufq *q);
 // void mbufq_init(struct mbufq *q);
 
-
 //
 // endianness support
 //
 
-static inline uint16 bswaps(uint16 val)
+static inline uint16
+bswaps(uint16 val)
 {
   return (((val & 0x00ffU) << 8) |
           ((val & 0xff00U) >> 8));
 }
 
-static inline uint32 bswapl(uint32 val)
+static inline uint32
+bswapl(uint32 val)
 {
   return (((val & 0x000000ffUL) << 24) |
           ((val & 0x0000ff00UL) << 8) |
@@ -74,38 +80,33 @@ static inline uint32 bswapl(uint32 val)
 #define htonl bswapl
 
 
-//
-// useful networking headers
-//
-
-#define ETHADDR_LEN 6
 
 // an Ethernet packet header (start of the packet).
 struct eth {
-  uint8  dhost[ETHADDR_LEN];
-  uint8  shost[ETHADDR_LEN];
+  uint8 dhost[ETHADDR_LEN];
+  uint8 shost[ETHADDR_LEN];
   uint16 type;
 } __attribute__((packed));
 
-#define ETHTYPE_IP  0x0800 // Internet protocol
+#define ETHTYPE_IP 0x0800  // Internet protocol
 #define ETHTYPE_ARP 0x0806 // Address resolution protocol
 
 // an IP packet header (comes after an Ethernet header).
 struct ip {
-  uint8  ip_vhl; // version << 4 | header length >> 2
-  uint8  ip_tos; // type of service
+  uint8 ip_vhl;  // version << 4 | header length >> 2
+  uint8 ip_tos;  // type of service
   uint16 ip_len; // total length
   uint16 ip_id;  // identification
   uint16 ip_off; // fragment offset field
-  uint8  ip_ttl; // time to live
-  uint8  ip_p;   // protocol
+  uint8 ip_ttl;  // time to live
+  uint8 ip_p;    // protocol
   uint16 ip_sum; // checksum
   uint32 ip_src, ip_dst;
 };
 
-#define IPPROTO_ICMP 1  // Control message protocol
-#define IPPROTO_TCP  6  // Transmission control protocol
-#define IPPROTO_UDP  17 // User datagram protocol
+#define IPPROTO_ICMP 1 // Control message protocol
+#define IPPROTO_TCP 6  // Transmission control protocol
+#define IPPROTO_UDP 17 // User datagram protocol
 
 #define MAKE_IP_ADDR(a, b, c, d)           \
   (((uint32)a << 24) | ((uint32)b << 16) | \
@@ -123,14 +124,14 @@ struct udp {
 struct arp {
   uint16 hrd; // format of hardware address
   uint16 pro; // format of protocol address
-  uint8  hln; // length of hardware address
-  uint8  pln; // length of protocol address
+  uint8 hln;  // length of hardware address
+  uint8 pln;  // length of protocol address
   uint16 op;  // operation
 
-  char   sha[ETHADDR_LEN]; // sender hardware address
-  uint32 sip;              // sender IP address
-  char   tha[ETHADDR_LEN]; // target hardware address
-  uint32 tip;              // target IP address
+  char sha[ETHADDR_LEN]; // sender hardware address
+  uint32 sip;            // sender IP address
+  char tha[ETHADDR_LEN]; // target hardware address
+  uint32 tip;            // target IP address
 } __attribute__((packed));
 
 #define ARP_HRD_ETHER 1 // Ethernet
@@ -142,19 +143,19 @@ enum {
 
 // an DNS packet (comes after an UDP header).
 struct dns {
-  uint16 id;  // request ID
+  uint16 id; // request ID
 
-  uint8 rd: 1;  // recursion desired
-  uint8 tc: 1;  // truncated
-  uint8 aa: 1;  // authoritive
-  uint8 opcode: 4; 
-  uint8 qr: 1;  // query/response
-  uint8 rcode: 4; // response code
-  uint8 cd: 1;  // checking disabled
-  uint8 ad: 1;  // authenticated data
-  uint8 z:  1;  
-  uint8 ra: 1;  // recursion available
-  
+  uint8 rd : 1; // recursion desired
+  uint8 tc : 1; // truncated
+  uint8 aa : 1; // authoritive
+  uint8 opcode : 4;
+  uint8 qr : 1;    // query/response
+  uint8 rcode : 4; // response code
+  uint8 cd : 1;    // checking disabled
+  uint8 ad : 1;    // authenticated data
+  uint8 z : 1;
+  uint8 ra : 1; // recursion available
+
   uint16 qdcount; // number of question entries
   uint16 ancount; // number of resource records in answer section
   uint16 nscount; // number of NS resource records in authority section
@@ -165,9 +166,9 @@ struct dns_question {
   uint16 qtype;
   uint16 qclass;
 } __attribute__((packed));
-  
+
 #define ARECORD (0x0001)
-#define QCLASS  (0x0001)
+#define QCLASS (0x0001)
 
 struct dns_data {
   uint16 type;
@@ -176,3 +177,54 @@ struct dns_data {
   uint16 len;
 } __attribute__((packed));
 
+
+struct tcp {
+  uint16 sport;
+  uint16 dport;
+  uint32 seqn;
+  uint32 ackn;
+  
+  uint8 resv: 4;
+  uint8 off: 4;
+  
+  uint8 fin: 1;
+  uint8 syn: 1;
+  uint8 rst: 1;
+  uint8 psh: 1;
+  uint8 ack: 1;
+  uint8 urg: 1;
+  uint8 ece: 1;
+  uint8 cwr: 1;
+
+  uint16 win;
+  uint16 sum;
+  uint16 urp;
+} __attribute__((packed));
+
+struct tcpcb
+{
+  uint32 seqn;
+  uint32 ackn;
+  enum {
+    CLOSED,       //0
+    LISTEN,       //1
+    SYN_SENT,     //2
+    SYN_RECV,     //3
+    ESTABLISHED,  //4
+    CLOSE_WAIT,   //5
+    FIN_WAIT_1,   //6
+    CLOSING,      //7
+    LAST_ACK,     //8
+    FIN_WAIT_2,   //9
+    TIME_WAIT,    //10
+  } state;
+};
+
+struct psd
+{
+  uint32 sip;
+  uint32 dip;
+  uint8 zero;
+  uint8 prot;
+  uint16 len;
+};

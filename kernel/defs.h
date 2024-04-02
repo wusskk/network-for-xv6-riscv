@@ -10,6 +10,7 @@ struct stat;
 struct superblock;
 struct sock;
 struct mbuf;
+struct tcpcb;
 
 // bio.c
 void            binit(void);
@@ -202,9 +203,11 @@ int             sockalloc(struct file**, uint32, uint16, uint16, uint16);
 void            sockclose(struct sock *);
 int             sockread(struct sock *, uint64, int);
 int             sockwrite(struct sock*, uint64, int);
+int             sockconnect(struct sock*);
 void            sockrecvudp(struct mbuf*, uint32, uint16, uint16);
+void            sockrecvtcp(struct mbuf*, uint32, uint16, uint16, uint, uint32, uint32);
 
 //net.c
 int             net_tx_udp(struct mbuf*, uint32, uint16,uint16);
-int             net_tx_tcp(struct mbuf*, uint32, uint16,uint16);
+int             net_tx_tcp(struct mbuf*, uint32, uint16,uint16, struct tcpcb*);
 void            net_rx_eth(struct mbuf*);
